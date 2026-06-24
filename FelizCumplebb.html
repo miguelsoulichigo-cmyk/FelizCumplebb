@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños Pau ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  background:linear-gradient(to bottom,#bfefff,#dff8ff,#fff0f7);
+  font-family:'Nunito',sans-serif;
+  text-align:center;
+  color:#555;
+  position:relative;
+}
+
+/* NUBES */
+.cloud{position:absolute;background:white;border-radius:100px;opacity:.8;}
+.cloud::before,.cloud::after{content:'';position:absolute;background:white;border-radius:50%;}
+.cloud::before{width:60px;height:60px;left:15px;top:-20px;}
+.cloud::after{width:80px;height:80px;right:15px;top:-35px;}
+.c1{width:180px;height:60px;top:50px;left:5%;}
+.c2{width:220px;height:70px;top:180px;right:5%;}
+.c3{width:160px;height:55px;bottom:150px;left:12%;}
+
+/* TÍTULOS */
+h1{margin-top:20px;font-family:'Pacifico',cursive;color:#ff5da0;font-size:3rem;}
+.subtitle{font-size:1.3rem;color:#8f5bc9;margin-top:8px;}
+.counter{margin-top:20px;font-size:1.5rem; display: flex; align-items: center; justify-content: center; gap: 5px;}
+
+/* ICONO SNOOPY AJUSTADO */
+.snoopy-icon {
+  height: 1.2em; /* Ajusta el tamaño para que sea como el texto/corazones */
+  width: auto;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+/* CARTELITO */
+.sign{
+  display:inline-block;
+  margin-bottom:15px;
+  background:linear-gradient(gold,#d4af37);
+  color:white;
+  padding:9px 20px;
+  border-radius:15px;
+  font-weight:bold;
+  font-size:1rem;
+  box-shadow:0 0 15px gold;
+}
+
+/* ZONA PASTEL */
+.cake-container{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* SVG único integrado y ajustado */
+#cake{
+  display:block;
+  width:300px;
+  height:auto;
+  cursor:default;
+  filter:drop-shadow(0 8px 20px rgba(168,134,121,0.3));
+  animation:breathe 3s ease-in-out infinite;
+}
+@keyframes breathe{50%{transform:scale(1.02);}}
+
+/* Llamas — solo opacity, sin saltos */
+.flame-outer{ animation: flameA 1.4s ease-in-out infinite alternate; }
+.flame-mid  { animation: flameB 1.1s ease-in-out infinite alternate; }
+.flame-tip  { animation: flameC 0.9s ease-in-out infinite alternate; }
+
+@keyframes flameA{from{opacity:.85;}to{opacity:1;}}
+@keyframes flameB{from{opacity:.7;} to{opacity:.95;}}
+@keyframes flameC{from{opacity:.5;} to{opacity:.9;}}
+
+/* Cada vela clickeable */
+.vela{ cursor:pointer; }
+
+/* MENSAJES */
+#celebration{display:none;margin-top:25px;}
+.big{font-family:'Pacifico';color:#ff2d7a;font-size:3.5rem;}
+.message{opacity:0;font-size:1.4rem;margin:16px;animation:fade 1.5s forwards;}
+@keyframes fade{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+#loveBtn{
+  display:none;
+  margin:35px auto;
+  border:none;
+  padding:18px 35px;
+  border-radius:50px;
+  font-size:1.2rem;
+  background:linear-gradient(gold,#d4af37);
+  box-shadow:0 0 20px gold;
+  cursor:pointer;
+  font-family:'Nunito',sans-serif;
+}
+
+.letter{
+  display:none;
+  max-width:700px;
+  margin:35px auto;
+  background:#fffdf3;
+  padding:35px;
+  border-radius:20px;
+  box-shadow:0 0 20px rgba(0,0,0,.15);
+  line-height:1.8;
+  text-align:left;
+}
+
+/* CORAZONES FLOTANTES */
+.heart{position:fixed;bottom:-30px;font-size:22px;animation:up 8s linear forwards;}
+@keyframes up{to{transform:translateY(-110vh);opacity:0;}}
+
+@media(max-width:600px){
+  h1{font-size:2rem;}
+  .big{font-size:2rem;}
+  #cake{width:250px;}
+}
+
+/* Humo inyectado por JS */
+@keyframes smokeUp{
+  0%  { opacity:.55; transform:translateY(0)    scale(1);  }
+  100%{ opacity:0;   transform:translateY(-20px) scale(2.5); }
+}
+</style>
+</head>
+<body>
+
+<div class="cloud c1"></div>
+<div class="cloud c2"></div>
+<div class="cloud c3"></div>
+
+<h1>Para la persona más especial 💕</h1>
+<div class="subtitle">24 de Junio - Cumpleaños de Pau 🎀</div>
+
+<div class="counter">
+  Velitas por apagar: <span id="hearts">❤️❤️❤️❤️❤️</span>
+</div>
+
+<div class="cake-container">
+  <div class="sign">FELIZ 20 AÑOS</div>
+
+  <!-- SVG del Pastel y Velitas Pequeñas -->
+  <svg id="cake" viewBox="10 -90 180 165" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="vGradA" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#ffc8e0"/>
+        <stop offset="50%"  stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#cdb4f0"/>
+      </linearGradient>
+      <linearGradient id="vGradB" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#cdb4f0"/>
+        <stop offset="50%"  stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#ffc8e0"/>
+      </linearGradient>
+      <radialGradient id="fOuter" cx="50%" cy="90%" r="55%">
+        <stop offset="0%"   stop-color="#ffee88"/>
+        <stop offset="55%"  stop-color="#ffaa00"/>
+        <stop offset="100%" stop-color="#ff5500" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="fInner" cx="50%" cy="90%" r="55%">
+        <stop offset="0%"   stop-color="#ffffff"/>
+        <stop offset="60%"  stop-color="#ffdd44"/>
+        <stop offset="100%" stop-color="#ffaa00" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- VELA 1 -->
+    <g class="vela" id="v0">
+      <rect x="28" y="-48" width="10" height="45" rx="3" fill="url(#vGradA)" stroke="white" stroke-width="1"/>
+      <rect x="28" y="-32" width="10" height="2"  rx="0.5" fill="rgba(255,80,140,.35)"/>
+      <rect x="28" y="-18" width="10" height="2"  rx="0.5" fill="rgba(160,100,255,.35)"/>
+      <rect x="32" y="-53" width="2" height="6" rx="1" fill="#777"/>
+      <g id="f0">
+        <ellipse class="flame-outer" cx="33" cy="-62" rx="5" ry="9" fill="url(#fOuter)" opacity=".9"/>
+        <ellipse class="flame-mid"   cx="33" cy="-64" rx="3" ry="6" fill="url(#fInner)" opacity=".85"/>
+        <ellipse class="flame-tip"   cx="33" cy="-67" rx="1.5" ry="3" fill="white" opacity=".8"/>
+      </g>
+    </g>
+
+    <!-- VELA 2 -->
+    <g class="vela" id="v1">
+      <rect x="58" y="-48" width="10" height="45" rx="3" fill="url(#vGradB)" stroke="white" stroke-width="1"/>
+      <rect x="58" y="-32" width="10" height="2"  rx="0.5" fill="rgba(255,80,140,.35)"/>
+      <rect x="58" y="-18" width="10" height="2"  rx="0.5" fill="rgba(160,100,255,.35)"/>
+      <rect x="62" y="-53" width="2" height="6" rx="1" fill="#777"/>
+      <g id="f1">
+        <ellipse class="flame-outer" cx="63" cy="-62" rx="5" ry="9" fill="url(#fOuter)" opacity=".9"/>
+        <ellipse class="flame-mid"   cx="63" cy="-64" rx="3" ry="6" fill="url(#fInner)" opacity=".85"/>
+        <ellipse class="flame-tip"   cx="63" cy="-67" rx="1.5" ry="3" fill="white" opacity=".8"/>
+      </g>
+    </g>
+
+    <!-- VELA 3 -->
+    <g class="vela" id="v2">
+      <rect x="95" y="-48" width="10" height="45" rx="3" fill="url(#vGradA)" stroke="white" stroke-width="1"/>
+      <rect x="95" y="-32" width="10" height="2"  rx="0.5" fill="rgba(255,80,140,.35)"/>
+      <rect x="95" y="-18" width="10" height="2"  rx="0.5" fill="rgba(160,100,255,.35)"/>
+      <rect x="99" y="-53" width="2" height="6" rx="1" fill="#777"/>
+      <g id="f2">
+        <ellipse class="flame-outer" cx="100" cy="-62" rx="5" ry="9" fill="url(#fOuter)" opacity=".9"/>
+        <ellipse class="flame-mid"   cx="100" cy="-64" rx="3" ry="6" fill="url(#fInner)" opacity=".85"/>
+        <ellipse class="flame-tip"   cx="100" cy="-67" rx="1.5" ry="3" fill="white" opacity=".8"/>
+      </g>
+    </g>
+
+    <!-- VELA 4 -->
+    <g class="vela" id="v3">
+      <rect x="132" y="-48" width="10" height="45" rx="3" fill="url(#vGradB)" stroke="white" stroke-width="1"/>
+      <rect x="132" y="-32" width="10" height="2"  rx="0.5" fill="rgba(255,80,140,.35)"/>
+      <rect x="132" y="-18" width="10" height="2"  rx="0.5" fill="rgba(160,100,255,.35)"/>
+      <rect x="136" y="-53" width="2" height="6" rx="1" fill="#777"/>
+      <g id="f3">
+        <ellipse class="flame-outer" cx="137" cy="-62" rx="5" ry="9" fill="url(#fOuter)" opacity=".9"/>
+        <ellipse class="flame-mid"   cx="137" cy="-64" rx="3" ry="6" fill="url(#fInner)" opacity=".85"/>
+        <ellipse class="flame-tip"   cx="137" cy="-67" rx="1.5" ry="3" fill="white" opacity=".8"/>
+      </g>
+    </g>
+
+    <!-- VELA 5 -->
+    <g class="vela" id="v4">
+      <rect x="162" y="-48" width="10" height="45" rx="3" fill="url(#vGradA)" stroke="white" stroke-width="1"/>
+      <rect x="162" y="-32" width="10" height="2"  rx="0.5" fill="rgba(255,80,140,.35)"/>
+      <rect x="162" y="-18" width="10" height="2"  rx="0.5" fill="rgba(160,100,255,.35)"/>
+      <rect x="166" y="-53" width="2" height="6" rx="1" fill="#777"/>
+      <g id="f4">
+        <ellipse class="flame-outer" cx="167" cy="-62" rx="5" ry="9" fill="url(#fOuter)" opacity=".9"/>
+        <ellipse class="flame-mid"   cx="167" cy="-64" rx="3" ry="6" fill="url(#fInner)" opacity=".85"/>
+        <ellipse class="flame-tip"   cx="167" cy="-67" rx="1.5" ry="3" fill="white" opacity=".8"/>
+      </g>
+    </g>
+
+    <!-- PASTEL ESTÁTICO -->
+    <g transform="translate(0, -412)">
+      <path fill="#f0b8d0" d="M173.667,427.569c-49.795,0-101.101,0-147.334,0c-3.999,0-4-16.002,0-16.002c46.385,0,97.539,0,147.334,0C177.668,411.567,177.667,427.569,173.667,427.569z" />
+      <path fill="#c49ab8" d="M102.242,427.569c5.348,0,14.079,0,17.462,0c0,0,17.026,0,27.504,0c19.143,0,20.39-3.797,26.459,0c3,1.877,0,7.823,0,7.823c-2.412,2.258-58.328,0-73.667,0l0,0c-1.858,0-67.187,0-73.667,0c0,0-4.125-4.983,0-7.823c5.201-3.58,16.085,0,23.725,0c8.841,0,20.762,0,20.762,0c3.686,0,8.597,0,19.511,0H102.242z" />
+      <path fill="#f0b8d0" d="M173.667,451.394c-49.298,0-102.782,0-147.334,0c-3.999,0-4-16.002,0-16.002c44.697,0,96.586,0,147.334,0C177.667,435.392,177.668,451.394,173.667,451.394z" />
+      <path fill="#c49ab8" d="M173.667,451.394c2.875,0,2.997,9.257,0,9.131c-22.662-0.956-32.09-0.956-41.756-0.956c-14.48,0-17.884,0-30.163,0c-2.087,0-2.068,0-3.915,0c-13.333,0-8.963,0-23.088,0c-11.668,0-34.99-0.294-48.412,1.831c-4.109,0.65-3.01-10.006,0-10.006C37.129,451.394,149.379,451.394,173.667,451.394z" />
+      <path fill="#f0b8d0" d="M173.667,475.571c-46.512,0-105.486,0-147.334,0c-3.999,0-4-16.002,0-16.002c43.566,0,97.96,0,147.334,0C177.667,459.569,177.666,475.571,173.667,475.571z" />
+      <path fill="#fff5fa" d="M111.547,415.233c-6.667-0.834-9.667,4.667-13.833,3.333c-19.649-6.291-8.158,22.176-14.5,22.334c-6.667,0.166,2.833-18-13.333-22.167c-29.544-7.615-9.667,43.833-20.167,43.833c-10.333,0,8.004-55.006-16.833-39c-7.5,4.833-9.508-3.78-9.299-7.004c0.799-12.329,23.592-7.153,38.132-7.329c10.234-0.124,20.238-1.505,38.287-2.167c16.642-0.61,32.903,1.125,46.213,1.5c12.438,0.351,35.058-5.579,31.863,6.451c-5.532,20.833,1.25,28.216-4.409,27.883c-7.606-0.447-6.058-37.895-20.62-23.333c-10.167,10.166-15.972-0.747-25,12C119.547,443.568,121.798,416.515,111.547,415.233z" />
+      <rect x="10" y="475.571" fill="#fff5fa" width="180" height="4"/>
+    </g>
+  </svg>
+</div>
+
+<div id="celebration">
+  <div class="big">¡FELIZ CUMPLEAÑOS PAU! ❤️</div>
+</div>
+<div id="messages"></div>
+
+<button id="loveBtn">💝 Toca aquí mi princesa 💝</button>
+
+<div class="letter">
+  <h2>Para mi niña hermosa 💖</h2>
+  <p>Estoy muy emocionado de vivir otro cumpleaños a tu lado mi niña hermosa, esta fecha 24 de junio es sin duda alguna mi favorita porque diosito y tu papá hicieron a la mujer más hermosa. Pásala muy bien con tu papá y familia. Puedes pedirme lo que sea y espero tu regalo haya llegado ya y te encante lo que hice para ti mi niñota hermosa. Ahhhh que feliz y espero así estés tú muack te amoooooooooooooooooo!! 💖</p>
+</div>
+
+<script>
+let apagadas = 0;
+const velas = ['v0','v1','v2','v3','v4'];
+
+velas.forEach((vid, idx) => {
+  document.getElementById(vid).addEventListener('click', () => {
+    const flameG = document.getElementById('f' + idx);
+    if (!flameG || flameG.dataset.out) return;
+    flameG.dataset.out = '1';
+
+    // Apagar llama
+    flameG.style.transition = 'opacity 0.4s';
+    flameG.style.opacity = '0';
+    setTimeout(() => { flameG.style.display = 'none'; }, 450);
+
+    // Humo ajustado
+    const smokeCX = [33, 63, 100, 137, 167][idx];
+    const svg = document.getElementById('cake');
+    const ns = 'http://www.w3.org/2000/svg';
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => {
+        const c = document.createElementNS(ns, 'circle');
+        c.setAttribute('cx', smokeCX + (Math.random()*4-2));
+        c.setAttribute('cy', -58); 
+        c.setAttribute('r',  2);
+        c.setAttribute('fill', 'rgba(150,150,150,0.55)');
+        c.style.animation = 'smokeUp 1.5s forwards';
+        svg.appendChild(c);
+        setTimeout(() => c.remove(), 1600);
+      }, i * 220);
+    }
+
+    // Cambiar contador a Snoopy
+    apagadas++;
+    let h = '';
+    for (let i = 0; i < 5; i++) {
+      if (i < apagadas) {
+        h += '<img src="https://files.catbox.moe/let0gp.png" class="snoopy-icon" alt="Snoopy apagado">';
+      } else {
+        h += '❤️';
+      }
+    }
+    
+    // Cambiamos .textContent por .innerHTML para que lea la etiqueta de imagen
+    document.getElementById('hearts').innerHTML = h;
+
+    if (apagadas === 5) celebrar();
+  });
+});
+
+function celebrar() {
+  document.getElementById('celebration').style.display = 'block';
+  ['Eres lo mejor que me ha pasado, Pau 💕',
+   'Cada día a tu lado es un regalo',
+   'Gracias por existir, mi vida',
+   'Te amo infinitamente, hoy y siempre',
+   'Feliz cumpleaños, mi princesa hermosa 🎂'
+  ].forEach((t, i) => {
+    setTimeout(() => {
+      const d = document.createElement('div');
+      d.className = 'message';
+      d.textContent = t;
+      document.getElementById('messages').appendChild(d);
+    }, i * 1800);
+  });
+  setTimeout(() => { document.getElementById('loveBtn').style.display = 'block'; }, 10000);
+  setInterval(() => {
+    const h = document.createElement('div');
+    h.className = 'heart'; h.innerHTML = '💖';
+    h.style.left = Math.random()*100 + 'vw';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 8000);
+  }, 250);
+}
+
+document.getElementById('loveBtn').onclick = () => {
+  document.querySelector('.letter').style.display = 'block';
+};
+</script>
+
+</body>
+</html>
